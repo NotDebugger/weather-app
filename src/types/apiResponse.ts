@@ -21,7 +21,14 @@ export interface OpenMeteoResponse {
 
 export interface GeoResponse {
   results: {
-    latitude: number;
-    longitude: number;
+    latitude?: number;
+    longitude?: number;
+    name?: string;
+    country?: string;
   }[];
+}
+
+export interface City {
+  name?: string;
+  country?: string;
 }
