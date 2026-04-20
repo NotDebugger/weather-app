@@ -1,9 +1,12 @@
 import SearchIcon from "../assets/images/icon-search.svg";
-import { useQuery } from "../hooks/useQuery";
 import SearchSuggestions from "./SearchSuggestions";
+import { useQuery } from "../hooks/useQuery";
+import { useWeather } from "../hooks/useWeather";
 
 export default function Search() {
-  const { query, setQuery } = useQuery();
+  const { queryInput, setQueryInput, activeQuery } = useQuery();
+  const { data, loading, error } = useWeather(activeQuery || "cairo");
+  console.log(data, loading, error);
 
   return (
     <div className="mt-5 flex flex-col justify-center items-center">
@@ -13,15 +16,15 @@ export default function Search() {
         onSubmit={(e: React.SubmitEvent<HTMLFormElement>) => e.preventDefault()}
       >
         <div className="flex flex-col gap-1">
-          <div className="bg-gray-700/55 flex items-center px-2 py-2 rounded-lg">
+          <div className="bg-[#2d2d45] flex items-center px-2 py-2 rounded-lg">
             <img src={SearchIcon} alt="" className="w-5 h-5 mx-3 opacity-70" />
             <input
               className="w-xs outline-none"
               type="text"
               placeholder="Search for a place..."
-              value={query}
+              value={queryInput}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setQuery(e.target.value)
+                setQueryInput(e.target.value)
               }
             />
           </div>

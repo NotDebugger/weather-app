@@ -4,27 +4,27 @@ import type { City } from "../types";
 import { useState, useEffect } from "react";
 
 export function useSuggestions() {
-  const { query } = useQuery();
+  const { queryInput } = useQuery();
   const [suggestions, setSuggestions] = useState<City[]>([]);
   const [suggestionsLoading, setSuggestionsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!query) {
+    if (!queryInput) {
       setSuggestions([]);
       return;
     }
     const timeout = setTimeout(async () => {
       try {
         setSuggestionsLoading(true);
-        const cities = await getSuggestionsCities(query);
+        const cities = await getSuggestionsCities(queryInput);
         setSuggestions(cities);
       } catch (err) {
         console.log(err);
       } finally {
         setSuggestionsLoading(false);
       }
-    }, 400);
+    }, 800);
     return () => clearTimeout(timeout);
-  }, [query]);
+  }, [queryInput]);
   return { suggestions, setSuggestions, suggestionsLoading };
 }

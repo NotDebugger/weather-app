@@ -28,6 +28,11 @@ const BASE_URL = "https://api.open-meteo.com/v1/forecast";
 
 export async function getWeatherData(
   query: string,
+  units: {
+    temp: string;
+    wind: string;
+    precipitation: string;
+  },
   controllerSignal: AbortSignal,
 ): Promise<WeatherData> {
   try {
@@ -44,7 +49,7 @@ export async function getWeatherData(
     const { latitude, longitude } = firstResult;
 
     const weatherRes = await axios.get<OpenMeteoResponse>(
-      `${BASE_URL}?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,wind_speed_10m,precipitation,relative_humidity_2m,apparent_temperature&hourly=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code`,
+      `${BASE_URL}?latitude=${latitude}&longitude=${longitude}&temperature_unit=${units.temp}&wind_speed_unit=${units.wind}&precipitation_unit=${units.precipitation}&current=temperature_2m,weather_code,wind_speed_10m,precipitation,relative_humidity_2m,apparent_temperature&hourly=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code`,
       {
         signal: controllerSignal,
       },

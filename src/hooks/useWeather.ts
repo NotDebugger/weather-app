@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { getWeatherData } from "../services/api";
 import type { WeatherData } from "../types";
+import { useUnits } from "./useUnits";
 
 export function useWeather(query: string) {
+  const { units } = useUnits();
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -13,7 +15,7 @@ export function useWeather(query: string) {
     async function fetchData() {
       try {
         setLoading(true);
-        const result = await getWeatherData(query, controller.signal);
+        const result = await getWeatherData(query, units, controller.signal);
         setWeatherData(result);
       } catch (error) {
         console.log(error);
@@ -25,6 +27,6 @@ export function useWeather(query: string) {
 
     fetchData();
     return () => controller.abort();
-  }, [query]);
+  }, [query, units]);
   return { data: weatherData, loading, error };
 }

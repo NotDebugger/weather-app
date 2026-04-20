@@ -1,7 +1,9 @@
 import { createContext } from "react";
 
 interface QueryState {
-  query: string;
-  setQuery: (value: string) => void;
+  queryInput: string;
+  setQueryInput: React.Dispatch<React.SetStateAction<string>>;
+  activeQuery: string;
+  setActiveQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 export const QueryContext = createContext<QueryState | null>(null);
