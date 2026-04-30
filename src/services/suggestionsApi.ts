@@ -7,7 +7,7 @@ export async function getSuggestionsCities(query: string): Promise<City[]> {
   );
   const cities = geoRes.data.results?.map(
     (city): City => ({
-      name: city.name,
+      name: city.name || "",
       country: city.country,
     }),
   );

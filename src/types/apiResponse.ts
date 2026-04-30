@@ -5,6 +5,8 @@ export interface OpenMeteoResponse {
     precipitation: number;
     relative_humidity_2m: number;
     apparent_temperature: number;
+    is_day: number;
+    weather_code: number;
   };
   hourly: {
     time: string[];
@@ -29,6 +31,6 @@ export interface GeoResponse {
 }
 
 export interface City {
-  name?: string;
+  name: string;
   country?: string;
 }

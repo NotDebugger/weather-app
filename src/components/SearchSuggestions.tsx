@@ -4,7 +4,7 @@ import LoadingIcon from "../assets/images/icon-loading.svg";
 
 export default function SearchSuggestions() {
   const { suggestions, setSuggestions, suggestionsLoading } = useSuggestions();
-  const { setQueryInput, setActiveQuery } = useQuery();
+  const { setQueryInput, setActiveCity } = useQuery();
 
   return (
     <>
@@ -23,7 +23,7 @@ export default function SearchSuggestions() {
                   className="px-2 py-1 cursor-pointer hover:bg-[#404060] rounded-lg"
                   key={i}
                   onClick={() => {
-                    setActiveQuery(city.name || "");
+                    setActiveCity(city);
                     setQueryInput("");
                     setSuggestions([]);
                   }}

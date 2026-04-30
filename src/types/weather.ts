@@ -5,16 +5,23 @@ export interface WeatherData {
     precipitation: number;
     humidity: number;
     feelsLike: number;
+    is_day: number;
+    weather_code: number;
   };
   hourly: {
     time: string[];
     temperature: number[];
-    weatherCode: number[];
+    weather_code: number[];
   };
   daily: {
     time: string[];
     tempMax: number[];
     tempMin: number[];
-    weatherCode: number[];
+    weather_code: number[];
   };
+}
+
+export interface WeatherInfo {
+  label: string;
+  icon: string;
 }

@@ -4,13 +4,15 @@ import { useQuery } from "../hooks/useQuery";
 import { useWeather } from "../hooks/useWeather";
 
 export default function Search() {
-  const { queryInput, setQueryInput, activeQuery } = useQuery();
-  const { data, loading, error } = useWeather(activeQuery || "cairo");
+  const { queryInput, setQueryInput, activeCity } = useQuery();
+  const { data, loading, error } = useWeather(activeCity.name);
   console.log(data, loading, error);
 
   return (
     <div className="mt-5 flex flex-col justify-center items-center">
-      <h1 className="text-4xl font-bold mb-10">How's the sky looking today?</h1>
+      <h1 className="text-4xl font-bold mb-10 font-[Bricolage_Grotesque]">
+        How's the sky looking today?
+      </h1>
       <form
         className="flex gap-2 text-sm items-start"
         onSubmit={(e: React.SubmitEvent<HTMLFormElement>) => e.preventDefault()}

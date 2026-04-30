@@ -24,7 +24,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: Roboto;
+  font-family: "Google Sans";
   color: #fff;
 
   @media (max-width: 1024px) {

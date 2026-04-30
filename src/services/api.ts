@@ -9,17 +9,19 @@ const mapWeatherData = (data: OpenMeteoResponse): WeatherData => {
       precipitation: data.current.precipitation,
       humidity: data.current.relative_humidity_2m,
       feelsLike: data.current.apparent_temperature,
+      is_day: data.current.is_day,
+      weather_code: data.current.weather_code,
     },
     hourly: {
       time: data.hourly.time,
       temperature: data.hourly.temperature_2m,
-      weatherCode: data.hourly.weather_code,
+      weather_code: data.hourly.weather_code,
     },
     daily: {
       time: data.daily.time,
       tempMax: data.daily.temperature_2m_max,
       tempMin: data.daily.temperature_2m_min,
-      weatherCode: data.daily.weather_code,
+      weather_code: data.daily.weather_code,
     },
   };
 };
@@ -49,7 +51,7 @@ export async function getWeatherData(
     const { latitude, longitude } = firstResult;
 
     const weatherRes = await axios.get<OpenMeteoResponse>(
-      `${BASE_URL}?latitude=${latitude}&longitude=${longitude}&temperature_unit=${units.temp}&wind_speed_unit=${units.wind}&precipitation_unit=${units.precipitation}&current=temperature_2m,weather_code,wind_speed_10m,precipitation,relative_humidity_2m,apparent_temperature&hourly=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code`,
+      `${BASE_URL}?latitude=${latitude}&longitude=${longitude}&temperature_unit=${units.temp}&wind_speed_unit=${units.wind}&precipitation_unit=${units.precipitation}&current=is_day,weather_code,temperature_2m,weather_code,wind_speed_10m,precipitation,relative_humidity_2m,apparent_temperature&hourly=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code`,
       {
         signal: controllerSignal,
       },
