@@ -12,6 +12,7 @@ export interface WeatherData {
     time: string[];
     temperature: number[];
     weather_code: number[];
+    is_day: number[];
   };
   daily: {
     time: string[];

@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { getWeatherData } from "../services/api";
 import type { WeatherData } from "../types";
 import { useUnits } from "./useUnits";
+import { useQuery } from "./useQuery";
 
-export function useWeather(query: string) {
+export function useWeather() {
+  const { activeCity } = useQuery();
+  const query = activeCity.name;
   const { units } = useUnits();
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);

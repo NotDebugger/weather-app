@@ -25,7 +25,7 @@ export default function Navbar() {
   ];
 
   const defaultClass: string =
-    "px-2 py-1 text-xs hover:bg-[#404060] rounded-md cursor-pointer flex justify-between items-center";
+    "px-2 py-1 text-xs hover:bg-l-primary rounded cursor-pointer flex justify-between items-center";
   const CheckIcon = () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,7 @@ export default function Navbar() {
       </div>
       <div className="relative">
         <button
-          className="flex items-center p-2 bg-[#2d2d45] rounded-lg cursor-pointer"
+          className="flex items-center p-2 bg-primary rounded-lg cursor-pointer"
           onClick={() => SetOpen(!open)}
         >
           <img src={IconUnits} alt="" />
@@ -57,7 +57,7 @@ export default function Navbar() {
           />
         </button>
         {open && (
-          <div className="absolute p-2 rounded-lg w-44 bg-[#2d2d45] right-0 top-12 z-10">
+          <div className="absolute p-2 rounded-lg w-44 bg-primary right-0 top-12 z-10 shadow-md border border-white/10">
             <div>
               <h4 className="text-xs text-gray-400">Temperature</h4>
               {tempOptions.map((opt) => (

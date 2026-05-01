@@ -12,6 +12,7 @@ export interface OpenMeteoResponse {
     time: string[];
     temperature_2m: number[];
     weather_code: number[];
+    is_day: number[];
   };
   daily: {
     time: string[];

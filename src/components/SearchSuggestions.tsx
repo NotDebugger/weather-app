@@ -9,18 +9,18 @@ export default function SearchSuggestions() {
   return (
     <>
       {suggestionsLoading ? (
-        <div className="px-3 py-2 flex gap-2 cursor-pointer bg-[#2d2d45] rounded-lg">
+        <div className="px-3 py-2 flex gap-2 cursor-pointer bg-primary rounded-lg absolute top-10 w-full z-20">
           <img src={LoadingIcon} alt="" className="animate-spin" />
           Search in progress
         </div>
       ) : (
         suggestions?.length > 0 && (
-          <ul className="bg-[#2d2d45] rounded-lg p-2">
+          <ul className="bg-primary rounded-lg p-2 absolute top-10 w-full z-20">
             {suggestions.map((city, i) => {
               if (i > 3) return;
               return (
                 <li
-                  className="px-2 py-1 cursor-pointer hover:bg-[#404060] rounded-lg"
+                  className="px-2 py-1 cursor-pointer hover:bg-l-primary rounded-lg"
                   key={i}
                   onClick={() => {
                     setActiveCity(city);

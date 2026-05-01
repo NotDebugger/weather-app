@@ -31,12 +31,23 @@
     font-size: 16px;
   }
 }
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #6b7280;
+  border-radius: 100px;
+}
 
 @media (prefers-color-scheme: dark) {
   :root {
     --text: #9ca3af;
     --text-h: #f3f4f6;
-    --bg: #0b1234;
+    --bg: #090e2a;
     --border: #2e303a;
     --code-bg: #1f2028;
     --accent: #c084fc;
