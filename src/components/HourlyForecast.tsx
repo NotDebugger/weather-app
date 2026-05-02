@@ -67,8 +67,8 @@ export default function HourlyForecast() {
           )}
         </div>
       </div>
-      <div>
-        <ul className="h-120 overflow-x-scroll flex flex-col gap-2 p-1">
+      <div className="h-115 overflow-y-auto">
+        <ul className="flex flex-col gap-2 p-1">
           {forecastHours.map((hour, i) => (
             <li
               key={i}

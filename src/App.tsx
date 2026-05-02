@@ -8,6 +8,8 @@ import CurrentTemperature from "./components/CurrentTemperature";
 import type { Units } from "./types";
 import type { City } from "./types";
 import HourlyForecast from "./components/HourlyForecast";
+import CurrentWeatherInfo from "./components/CurrentWeatherInfo";
+import DailyForecast from "./components/DailyForecast";
 
 function App() {
   const [units, setUnits] = useState<Units>({
@@ -29,8 +31,13 @@ function App() {
         <WeatherUnitsContext.Provider value={{ units, setUnits }}>
           <Navbar />
           <Search />
-          <div className="flex justify-center gap-5 mt-16">
-            <CurrentTemperature />
+          <div className="flex justify-center gap-5 my-16">
+            <div className="flex flex-col gap-4">
+              <CurrentTemperature />
+              <CurrentWeatherInfo />
+              <DailyForecast />
+            </div>
+
             <HourlyForecast />
           </div>
         </WeatherUnitsContext.Provider>

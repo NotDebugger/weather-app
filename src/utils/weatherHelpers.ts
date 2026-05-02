@@ -1,5 +1,9 @@
-import type { WeatherData } from "../types";
-import { hourFormatDate, dayFormatDate } from "../utils/formatDate";
+import type { WeatherData, Units } from "../types";
+import {
+  hourFormatDate,
+  dayFormatDate,
+  dayFormatDateShort,
+} from "../utils/formatDate";
 import { getCurrentTime } from "../utils/formatDate";
 
 export function getForecastByDay(data: WeatherData, selectedDay: string) {
@@ -60,4 +64,47 @@ export function getForecastByDay(data: WeatherData, selectedDay: string) {
     forecastIsDay,
     forecastDays,
   };
+}
+
+export function getCurrentWeatherInfo(data: WeatherData, units: Units) {
+  const currentWeatherInfo: {
+    title: string;
+    current: number | string;
+    unit: string;
+  }[] = [
+    {
+      title: "Feels Like",
+      current:
+        data.current.feelsLike != null
+          ? Math.round(data.current.feelsLike)
+          : "_",
+      unit: "°",
+    },
+    { title: "Humidity", current: data.current.humidity ?? "_", unit: "%" },
+    {
+      title: "Wind",
+      current:
+        data.current.windSpeed != null
+          ? Math.round(data.current.windSpeed)
+          : "_",
+      unit: units.wind === "kmh" ? " Km/h" : " Mph",
+    },
+    {
+      title: "Precipitation",
+      current: data.current.precipitation ?? "_",
+      unit: units.precipitation === "mm" ? " mm" : " inch",
+    },
+  ];
+
+  return currentWeatherInfo;
+}
+
+export function getDailyForecast(data: WeatherData) {
+  const dailyForecastDays: string[] =
+    data?.daily.time.map((h) => dayFormatDateShort(h)) ?? [];
+  const dailyMaxTemp: number[] = data?.daily.tempMax.map((e) => Math.round(e));
+  const dailyMinTemp: number[] = data?.daily.tempMin.map((e) => Math.round(e));
+  const dailyWeatherCodes: number[] = data?.daily.weather_code;
+
+  return { dailyForecastDays, dailyMaxTemp, dailyMinTemp, dailyWeatherCodes };
 }

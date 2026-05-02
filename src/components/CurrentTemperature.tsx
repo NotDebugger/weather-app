@@ -7,18 +7,19 @@ import type { WeatherInfo } from "../types";
 
 export default function CurrentTemperature() {
   const { activeCity } = useQuery();
-  const { data, loading, error } = useWeather();
+  const { data, loading } = useWeather();
   const weatherCodes = useWeatherCodes();
   if (!data) return;
+  console.log(data);
   let currWeatherCode: WeatherInfo = weatherCodes[data.current.weather_code];
   if (
     (data.current.weather_code === 1 || data.current.weather_code === 0) &&
     data.current.is_day === 0
   )
-    currWeatherCode = weatherCodes[1];
+    currWeatherCode = weatherCodes[100];
 
   return (
-    <div className="w-1/2 h-60 bg-primary rounded-2xl">
+    <div className="h-60 bg-primary rounded-2xl">
       {loading ? (
         <div className="text-center">loading</div>
       ) : (
@@ -26,7 +27,7 @@ export default function CurrentTemperature() {
           className={`flex justify-between items-center bg-cover bg-center bg-no-repeat h-60 rounded-2xl`}
           style={{ backgroundImage: `url(${BgTodayLarge})` }}
         >
-          <div className="ml-8">
+          <div className="ml-8 w-1/2">
             <h2 className="text-3xl font-bold mb-2">
               {activeCity.name}, {activeCity.country}
             </h2>

@@ -26,6 +26,16 @@ export function dayFormatDate(dateString: string, locale: string = "en-US") {
     weekday: "long",
   }).format(new Date(dateString));
 }
+export function dayFormatDateShort(
+  dateString: string,
+  locale: string = "en-US",
+) {
+  if (!dateString) return "";
+
+  return new Intl.DateTimeFormat(locale, {
+    weekday: "short",
+  }).format(new Date(dateString));
+}
 
 export function getCurrentTime() {
   const now = new Date();
