@@ -1,9 +1,16 @@
 import SearchIcon from "../assets/images/icon-search.svg";
 import SearchSuggestions from "./SearchSuggestions";
 import { useQuery } from "../hooks/useQuery";
+import { useSuggestions } from "../hooks/useSuggestions";
 
-export default function Search() {
+export default function Search({
+  setHasResult,
+}: {
+  setHasResult: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const { queryInput, setQueryInput } = useQuery();
+  const { suggestions } = useSuggestions();
+  console.log(suggestions);
 
   return (
     <div className="mt-5 flex flex-col justify-center items-center">
@@ -27,9 +34,20 @@ export default function Search() {
               }
             />
           </div>
-          <SearchSuggestions />
+          <SearchSuggestions setHasResult={setHasResult} />
         </div>
-        <button className="px-3 py-2 bg-indigo-700 rounded-lg cursor-pointer shadow-xl/30 shadow-indigo-700">
+        <button
+          className="px-3 py-2 bg-indigo-700 rounded-lg cursor-pointer shadow-xl/30 hover:bg-indigo-800 transition shadow-indigo-700"
+          onClick={() => {
+            if (!queryInput.trim()) return;
+
+            if (!suggestions?.length) {
+              setHasResult(false);
+            } else {
+              setHasResult(true);
+            }
+          }}
+        >
           Search
         </button>
       </form>

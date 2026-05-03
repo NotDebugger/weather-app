@@ -8,6 +8,7 @@ import type { Units } from "../types";
 export default function Navbar() {
   const { units, setUnits } = useUnits();
   const [open, SetOpen] = useState<boolean>(false);
+  const [system, setSystem] = useState<"Imperial" | "Metric">("Imperial");
   const tempOptions: { label: string; value: Units["temp"] }[] = [
     { label: "Celsius (°C)", value: "celsius" },
     { label: "Fahrenheit (°F)", value: "fahrenheit" },
@@ -25,7 +26,7 @@ export default function Navbar() {
   ];
 
   const defaultClass: string =
-    "px-2 py-1 text-xs hover:bg-l-primary rounded cursor-pointer flex justify-between items-center";
+    "px-2 py-1 text-sm hover:bg-l-primary rounded cursor-pointer flex justify-between items-center";
   const CheckIcon = () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +60,31 @@ export default function Navbar() {
         {open && (
           <div className="absolute p-2 rounded-lg w-44 bg-primary right-0 top-12 z-10 shadow-md border border-white/10">
             <div>
-              <h4 className="text-xs text-gray-400">Temperature</h4>
+              <p
+                className={`${defaultClass} mb-1`}
+                onClick={() => {
+                  setSystem((prev) =>
+                    prev === "Metric" ? "Imperial" : "Metric",
+                  );
+                  if (system === "Metric") {
+                    setUnits({
+                      temp: "celsius",
+                      wind: "kmh",
+                      precipitation: "mm",
+                    });
+                  } else {
+                    setUnits({
+                      temp: "fahrenheit",
+                      wind: "mph",
+                      precipitation: "inch",
+                    });
+                  }
+                  SetOpen(false);
+                }}
+              >
+                Switch to {system}
+              </p>
+              <h4 className="text-sm text-gray-400">Temperature</h4>
               {tempOptions.map((opt) => (
                 <p
                   key={opt.value}
@@ -76,7 +101,7 @@ export default function Navbar() {
               <hr className="opacity-20 my-2" />
             </div>
             <div>
-              <h4 className="text-xs text-gray-400">Wind Speed</h4>
+              <h4 className="text-sm text-gray-400">Wind Speed</h4>
               {windOptions.map((opt) => (
                 <p
                   key={opt.value}
@@ -93,7 +118,7 @@ export default function Navbar() {
               <hr className="opacity-20 my-2" />
             </div>
             <div>
-              <h4 className="text-xs text-gray-400">Precipitation</h4>
+              <h4 className="text-sm text-gray-400">Precipitation</h4>
               {precipitationOptions.map((opt) => (
                 <p
                   key={opt.value}

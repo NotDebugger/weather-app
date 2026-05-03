@@ -1,5 +1,6 @@
 import { useQuery } from "../hooks/useQuery";
-import { useWeather } from "../hooks/useWeather";
+import { useContext } from "react";
+import { WeatherContext } from "../contexts/WeatherContext";
 import { useWeatherCodes } from "../hooks/useWeatherCodes";
 import { currentTimeFormatDate } from "../utils/formatDate";
 import BgTodayLarge from "../assets/images/bg-today-large.svg";
@@ -7,8 +8,11 @@ import type { WeatherInfo } from "../types";
 
 export default function CurrentTemperature() {
   const { activeCity } = useQuery();
-  const { data, loading } = useWeather();
   const weatherCodes = useWeatherCodes();
+  const weather = useContext(WeatherContext);
+
+  if (!weather) return;
+  const { data, loading } = weather;
   if (!data) return;
   console.log(data);
   let currWeatherCode: WeatherInfo = weatherCodes[data.current.weather_code];
@@ -19,9 +23,18 @@ export default function CurrentTemperature() {
     currWeatherCode = weatherCodes[100];
 
   return (
-    <div className="h-60 bg-primary rounded-2xl">
+    <div
+      className={`h-60 w-180 bg-primary rounded-2xl ${loading && "flex justify-center items-center"}`}
+    >
       {loading ? (
-        <div className="text-center">loading</div>
+        <div className="flex gap-1 items-center flex-col">
+          <div className="flex gap-1">
+            <span className="w-2 h-2 bg-gray-300 rounded-full animate-pulse"></span>
+            <span className="w-2 h-2 bg-gray-300 rounded-full animate-pulse [animation-delay:0.2s]"></span>
+            <span className="w-2 h-2 bg-gray-300 rounded-full animate-pulse [animation-delay:0.4s]"></span>
+          </div>
+          <span className="text-sm text-gray-400">Loading...</span>
+        </div>
       ) : (
         <div
           className={`flex justify-between items-center bg-cover bg-center bg-no-repeat h-60 rounded-2xl`}

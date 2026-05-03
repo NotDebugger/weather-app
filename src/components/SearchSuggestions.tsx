@@ -2,7 +2,11 @@ import { useSuggestions } from "../hooks/useSuggestions";
 import { useQuery } from "../hooks/useQuery";
 import LoadingIcon from "../assets/images/icon-loading.svg";
 
-export default function SearchSuggestions() {
+export default function SearchSuggestions({
+  setHasResult,
+}: {
+  setHasResult: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const { suggestions, setSuggestions, suggestionsLoading } = useSuggestions();
   const { setQueryInput, setActiveCity } = useQuery();
 
@@ -26,6 +30,7 @@ export default function SearchSuggestions() {
                     setActiveCity(city);
                     setQueryInput("");
                     setSuggestions([]);
+                    setHasResult(true);
                   }}
                 >
                   {city.name}, {city.country}

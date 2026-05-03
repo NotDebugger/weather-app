@@ -1,4 +1,5 @@
-import { useWeather } from "../hooks/useWeather";
+import { WeatherContext } from "../contexts/WeatherContext";
+import { useContext } from "react";
 import { useState } from "react";
 import { getForecastByDay } from "../utils/weatherHelpers";
 import { useWeatherCodes } from "../hooks/useWeatherCodes";
@@ -6,12 +7,14 @@ import { getCurrentTime } from "../utils/formatDate";
 import IconDropdown from "../assets/images/icon-dropdown.svg";
 
 export default function HourlyForecast() {
-  const { data } = useWeather();
   const weatherCodes = useWeatherCodes();
   const [open, setOpen] = useState<boolean>(false);
   const { currentDay } = getCurrentTime();
   const [selectedDay, setSelectedDay] = useState<string>(currentDay);
+  const weather = useContext(WeatherContext);
 
+  if (!weather) return;
+  const { data, loading } = weather;
   if (!data) return;
 
   const forecast = getForecastByDay(data, selectedDay || currentDay);
@@ -42,7 +45,7 @@ export default function HourlyForecast() {
             className="bg-l-primary w-28 px-2 py-1 rounded cursor-pointer flex justify-between border border-white/5"
             onClick={() => setOpen(!open)}
           >
-            {selectedDay}
+            {loading ? "-" : selectedDay}
             <img
               src={IconDropdown}
               alt=""
@@ -72,17 +75,23 @@ export default function HourlyForecast() {
           {forecastHours.map((hour, i) => (
             <li
               key={i}
-              className="flex justify-between items-center p-2 bg-l-primary rounded text-sm border border-white/10"
+              className="flex justify-between items-center min-h-10 p-2 bg-l-primary rounded text-sm border border-white/10"
             >
-              <span className="flex items-center gap-2">
-                <img
-                  src={handleWeatherCodeIcon(i)}
-                  alt="weather icon"
-                  className="w-6"
-                />{" "}
-                {hour}
-              </span>
-              <span>{forecastTemperature[i]}°</span>
+              {loading ? (
+                <div></div>
+              ) : (
+                <>
+                  <span className="flex items-center gap-2">
+                    <img
+                      src={handleWeatherCodeIcon(i)}
+                      alt="weather icon"
+                      className="w-6"
+                    />{" "}
+                    {hour}
+                  </span>
+                  <span>{forecastTemperature[i]}°</span>
+                </>
+              )}
             </li>
           ))}
         </ul>

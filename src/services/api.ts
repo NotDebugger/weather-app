@@ -36,11 +36,12 @@ export async function getWeatherData(
     wind: string;
     precipitation: string;
   },
-  controllerSignal: AbortSignal,
+  controllerSignal?: AbortSignal,
 ): Promise<WeatherData> {
   try {
     const geoRes = await axios.get<GeoResponse>(
       `https://geocoding-api.open-meteo.com/v1/search?name=${query}`,
+      { signal: controllerSignal },
     );
 
     const firstResult = geoRes.data.results?.[0];
@@ -60,12 +61,13 @@ export async function getWeatherData(
 
     return mapWeatherData(weatherRes.data);
   } catch (error) {
+    if (axios.isCancel(error)) throw error;
     if (axios.isAxiosError(error))
       throw new Error(
         error.response?.data?.reason ||
           error.response?.data?.message ||
           error.message,
       );
-    throw new Error("Unexpected error occurred");
+    throw error;
   }
 }

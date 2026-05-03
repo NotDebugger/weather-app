@@ -1,15 +1,10 @@
 import "./App.css";
-import Navbar from "./components/Navbar";
-import Search from "./components/Search";
+import type { Units } from "./types";
+import type { City } from "./types";
 import { useState } from "react";
 import { QueryContext } from "./contexts/QueryContext";
 import { WeatherUnitsContext } from "./contexts/WeatherUnitsContext";
-import CurrentTemperature from "./components/CurrentTemperature";
-import type { Units } from "./types";
-import type { City } from "./types";
-import HourlyForecast from "./components/HourlyForecast";
-import CurrentWeatherInfo from "./components/CurrentWeatherInfo";
-import DailyForecast from "./components/DailyForecast";
+import AppContent from "./components/AppContent";
 
 function App() {
   const [units, setUnits] = useState<Units>({
@@ -29,17 +24,7 @@ function App() {
         value={{ queryInput, setQueryInput, activeCity, setActiveCity }}
       >
         <WeatherUnitsContext.Provider value={{ units, setUnits }}>
-          <Navbar />
-          <Search />
-          <div className="flex justify-center gap-5 my-16">
-            <div className="flex flex-col gap-4">
-              <CurrentTemperature />
-              <CurrentWeatherInfo />
-              <DailyForecast />
-            </div>
-
-            <HourlyForecast />
-          </div>
+          <AppContent />
         </WeatherUnitsContext.Provider>
       </QueryContext.Provider>
     </>
