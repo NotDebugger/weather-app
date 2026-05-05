@@ -38,10 +38,10 @@ export default function CurrentTemperature() {
         </div>
       ) : (
         <div
-          className={`flex sm:justify-between items-center justify-center gap-3 sm:gap-0 flex-col sm:flex-row bg-cover bg-center bg-no-repeat h-60 rounded-2xl`}
+          className={`flex sm:justify-between text-center items-center justify-center gap-3 sm:gap-0 flex-col sm:flex-row bg-cover md:bg-center bg-no-repeat h-60 rounded-2xl`}
           style={{ backgroundImage: `url(${BgTodayLarge})` }}
         >
-          <div className="ml-8 w-1/2">
+          <div className=" w-1/2">
             <h2 className="text-3xl font-bold mb-2">
               {activeCity.name}, {activeCity.country}
             </h2>

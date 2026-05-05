@@ -47,7 +47,7 @@ export default function HourlyForecast() {
         <h3>Hourly Forecast</h3>
         <div className="relative">
           <button
-            className="bg-l-primary w-28 px-2 py-1 rounded cursor-pointer flex justify-between border border-white/5"
+            className="bg-l-primary md:w-28 px-2 py-1 rounded cursor-pointer flex sm:justify-between gap-1 border border-white/5"
             onClick={() => setOpen(!open)}
           >
             {loading ? "-" : selectedDay}
