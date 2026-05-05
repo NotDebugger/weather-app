@@ -26,7 +26,7 @@ export default function AppContent() {
           <Search setHasResult={setHasResult} />
           {hasResult ? (
             <>
-              <div className="flex justify-center gap-5 my-16">
+              <div className="flex justify-center gap-5 my-16 mx-5 flex-wrap md:flex-nowrap">
                 <div className="flex flex-col gap-4">
                   <CurrentTemperature />
                   <CurrentWeatherInfo />

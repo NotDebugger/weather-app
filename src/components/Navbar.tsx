@@ -3,20 +3,25 @@ import Logo from "../assets/images/logo.svg";
 import IconUnits from "../assets/images/icon-units.svg";
 import IconDropdown from "../assets/images/icon-dropdown.svg";
 import { useUnits } from "../hooks/useUnits";
+import { useDropdownRef } from "../hooks/useDropdownRef";
 import type { Units } from "../types";
 
 export default function Navbar() {
   const { units, setUnits } = useUnits();
   const [open, SetOpen] = useState<boolean>(false);
+  const ref = useDropdownRef(SetOpen);
   const [system, setSystem] = useState<"Imperial" | "Metric">("Imperial");
+
   const tempOptions: { label: string; value: Units["temp"] }[] = [
     { label: "Celsius (°C)", value: "celsius" },
     { label: "Fahrenheit (°F)", value: "fahrenheit" },
   ];
+
   const windOptions: { label: string; value: Units["wind"] }[] = [
     { label: "Km/h", value: "kmh" },
     { label: "Mph", value: "mph" },
   ];
+
   const precipitationOptions: {
     label: string;
     value: Units["precipitation"];
@@ -26,7 +31,7 @@ export default function Navbar() {
   ];
 
   const defaultClass: string =
-    "px-2 py-1 text-sm hover:bg-l-primary rounded cursor-pointer flex justify-between items-center";
+    "px-2 py-1 text-md md:text-sm hover:bg-l-primary rounded cursor-pointer flex justify-between items-center";
   const CheckIcon = () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +45,10 @@ export default function Navbar() {
   );
 
   return (
-    <div className="flex justify-between items-center px-16 py-6">
+    <div
+      ref={ref}
+      className="flex justify-between items-center gap-2 px-5 md:px-16 py-6"
+    >
       <div className="flex justify-center items-center gap-2">
         <img src={Logo} alt="logo" />
       </div>
@@ -50,7 +58,7 @@ export default function Navbar() {
           onClick={() => SetOpen(!open)}
         >
           <img src={IconUnits} alt="" />
-          <span className="mx-1 text-xs">Units</span>
+          <span className="mx-1 text-sm md:text-xs">Units</span>
           <img
             src={IconDropdown}
             alt=""
@@ -84,7 +92,7 @@ export default function Navbar() {
               >
                 Switch to {system}
               </p>
-              <h4 className="text-sm text-gray-400">Temperature</h4>
+              <h4 className="text-md md:text-sm text-gray-400">Temperature</h4>
               {tempOptions.map((opt) => (
                 <p
                   key={opt.value}
@@ -101,7 +109,7 @@ export default function Navbar() {
               <hr className="opacity-20 my-2" />
             </div>
             <div>
-              <h4 className="text-sm text-gray-400">Wind Speed</h4>
+              <h4 className="text-md md:text-sm text-gray-400">Wind Speed</h4>
               {windOptions.map((opt) => (
                 <p
                   key={opt.value}
@@ -118,7 +126,9 @@ export default function Navbar() {
               <hr className="opacity-20 my-2" />
             </div>
             <div>
-              <h4 className="text-sm text-gray-400">Precipitation</h4>
+              <h4 className="text-md md:text-sm text-gray-400">
+                Precipitation
+              </h4>
               {precipitationOptions.map((opt) => (
                 <p
                   key={opt.value}

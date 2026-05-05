@@ -15,13 +15,13 @@ export default function DailyForecast() {
     getDailyForecast(data);
 
   return (
-    <div>
+    <div className="text-lg md:text-sm">
       <h3 className="mb-3">Daily Forecast</h3>
-      <div className="flex justify-between">
+      <div className="flex gap-3 justify-start xl:justify-between flex-wrap">
         {dailyForecastDays.map((day, i) => (
           <div
             key={i}
-            className="flex flex-col items-center w-1/9 min-h-28 text-sm bg-l-primary/60 border border-white/10 rounded-xl p-2"
+            className="flex flex-col items-center w-[calc((1/3*100%)-12px)] md:w-[calc((1/5*100%)-12px)] lg:w-[calc((1/7*100%)-12px)] min-h-28 bg-l-primary/60 border border-white/10 rounded-xl p-2"
           >
             {loading ? (
               <div></div>

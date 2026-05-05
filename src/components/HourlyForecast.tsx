@@ -5,6 +5,7 @@ import { getForecastByDay } from "../utils/weatherHelpers";
 import { useWeatherCodes } from "../hooks/useWeatherCodes";
 import { getCurrentTime } from "../utils/formatDate";
 import IconDropdown from "../assets/images/icon-dropdown.svg";
+import { useDropdownRef } from "../hooks/useDropdownRef";
 
 export default function HourlyForecast() {
   const weatherCodes = useWeatherCodes();
@@ -12,6 +13,7 @@ export default function HourlyForecast() {
   const { currentDay } = getCurrentTime();
   const [selectedDay, setSelectedDay] = useState<string>(currentDay);
   const weather = useContext(WeatherContext);
+  const ref = useDropdownRef(setOpen);
 
   if (!weather) return;
   const { data, loading } = weather;
@@ -37,8 +39,11 @@ export default function HourlyForecast() {
     return weatherCodes[forecastCodes[i]].icon;
   }
   return (
-    <div className="bg-primary rounded-xl border border-white/10 p-4 forecast">
-      <div className="flex gap-5 mb-3 items-center justify-between text-sm">
+    <div
+      ref={ref}
+      className="bg-primary flex flex-col w-full md:w-fit rounded-xl border text-lg md:text-sm border-white/10 p-4"
+    >
+      <div className="flex gap-5 mb-3 items-center justify-between">
         <h3>Hourly Forecast</h3>
         <div className="relative">
           <button
@@ -53,7 +58,7 @@ export default function HourlyForecast() {
             />
           </button>
           {open && (
-            <ul className="absolute p-2 rounded-lg text-sm w-32 right-0 top-9 bg-primary z-10 shadow-md border border-white/10">
+            <ul className="absolute p-2 rounded-lg w-32 right-0 top-11 bg-primary z-10 shadow-md border border-white/10">
               {forecastDays.map((day) => (
                 <li
                   key={day}
@@ -70,12 +75,12 @@ export default function HourlyForecast() {
           )}
         </div>
       </div>
-      <div className="h-115 overflow-y-auto">
+      <div className="h-145 lg:h-115 overflow-y-auto">
         <ul className="flex flex-col gap-2 p-1">
           {forecastHours.map((hour, i) => (
             <li
               key={i}
-              className="flex justify-between items-center min-h-10 p-2 bg-l-primary rounded text-sm border border-white/10"
+              className="flex justify-between items-center min-h-10 p-2 bg-l-primary rounded border border-white/10"
             >
               {loading ? (
                 <div></div>
