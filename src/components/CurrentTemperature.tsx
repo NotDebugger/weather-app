@@ -41,7 +41,7 @@ export default function CurrentTemperature() {
           className={`flex relative sm:justify-between text-center items-center justify-center gap-3 sm:gap-0 flex-col sm:flex-row bg-cover md:bg-center bg-no-repeat h-60 rounded-2xl`}
           style={{ backgroundImage: `url(${BgTodayLarge})` }}
         >
-          <div className="w-full">
+          <div className="w-full md:w-fit sm:text-left ml-8">
             <h2 className="text-3xl font-bold mb-2">
               {activeCity.name}, {activeCity.country}
             </h2>
@@ -49,7 +49,7 @@ export default function CurrentTemperature() {
               {currentTimeFormatDate(data?.daily?.time[0] || "")}
             </h4>
           </div>
-          <div className="flex items-center justify-center ms:justify-end gap-3 mr-8">
+          <div className="flex items-center justify-center  gap-3 mr-8">
             <img src={currWeatherCode.icon} alt="" className="w-1/4" />
             <h2 className="text-8xl font-bold italic">
               {Math.round(data.current.temperature)}°

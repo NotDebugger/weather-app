@@ -21,7 +21,7 @@ export default function SearchSuggestions({
         suggestions?.length > 0 && (
           <ul className="bg-primary rounded-lg p-2 absolute top-10 w-full z-20">
             {suggestions.map((city, i) => {
-              if (i > 3) return;
+              // if (i > 3) return;
               return (
                 <li
                   className="px-2 py-1 cursor-pointer hover:bg-l-primary rounded-lg"
